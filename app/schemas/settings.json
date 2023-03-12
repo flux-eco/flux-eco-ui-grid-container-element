@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://flux-eco.fluxlabs.ch/components/flux-eco-ui-grid-container-element/schemas/settings.json",
+  "title": "FluxEcoUiGridContainerElementSettings",
+  "type": "object",
+  "properties": {
+    "numberOfColumns": {
+      "type": "number"
+    },
+    "gridGapInPx": {
+      "type": "number"
+    },
+    "itemBackgroundColor": {
+      "type": "string"
+    },
+    "itemPaddingInPx": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "numberOfColumns",
+    "gridGapInPx",
+    "itemBackgroundColor",
+    "itemPaddingInPx"
+  ]
+}

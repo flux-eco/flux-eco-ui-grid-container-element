@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://flux-eco.fluxlabs.ch/components/flux-eco-ui-grid-container-element/schemas/state.json",
+  "title": "FluxEcoUiGridContainerElementState",
+  "type": "object",
+  "properties": {
+    "gridContainerElementItems": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "const": "flux-eco-ui-map-element"
+              },
+              "config": {
+                "$ref": "../../flux-eco-ui-map-element/schemas/config.json",
+                "required": [
+                  "id",
+                  "settings",
+                  "initialState"
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "config"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "gridContainerElementItems"
+  ]
+}
