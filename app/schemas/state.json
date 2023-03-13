@@ -5,30 +5,27 @@
   "type": "object",
   "properties": {
     "gridContainerElementItems": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "const": "flux-eco-ui-map-element"
-              },
-              "config": {
-                "$ref": "../../flux-eco-ui-map-element/schemas/config.json",
-                "required": [
-                  "id",
-                  "settings",
-                  "initialState"
-                ]
-              }
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "uiElementDefinition": {
+            "tagName": {
+              "type": "string"
             },
-            "required": [
-              "name",
-              "config"
-            ]
+            "config": {
+              "type": "object"
+            }
+          },
+          "readStateActionDefinition": {
+            "actionEndpoint": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "object"
+            }
           }
-        ]
+        }
       }
     }
   },

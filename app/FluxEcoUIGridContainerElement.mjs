@@ -27,12 +27,6 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
      */
     #contentContainer;
 
-    /**
-     * @returns {string[]}
-     */
-    static get observedAttributes() {
-        return ["state"];
-    }
 
     /**
      * @param {FluxEcoUiGridContainerElementConfig} validatedConfig
@@ -95,16 +89,6 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
         }
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case "state":
-                this.changeState(JSON.parse(newValue));
-                break;
-            default:
-                break;
-        }
-    }
-
     changeState(newState) {
         //todo validate
         this.#applyStateChanged(newState);
@@ -112,20 +96,23 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
 
     #applyStateChanged(validatedState) {
         const {gridContainerElementItems} = validatedState
+        if (this.#contentContainer !== undefined) {
+            this.#contentContainer.innerHTML = "";
+        }
+        if (gridContainerElementItems !== undefined) {
+            /**
+             * @param {GridContainerElementItem} item
+             */
+            for (const [key, gridContainerElementItem] of Object.entries(gridContainerElementItems)) {
+                const element = this.#outbounds.createUiElement(gridContainerElementItem.uiElementDefinition, gridContainerElementItem.readStateActionDefinition);
+                console.log(element);
 
-        this.#contentContainer.innerHTML = "";
-
-        gridContainerElementItems.forEach((item) => {
-            const element = this.#outbounds.createElement(item.tagName, item.config);
-            element.classList.add("grid-item");
-            this.#contentContainer.appendChild(element)
-        });
+                element.classList.add("grid-item");
+                this.#contentContainer.appendChild(element)
+            }
+        }
 
         this.#state = validatedState;
-        const stateStringified = JSON.stringify(this.#state)
-        if (this.getAttribute("state") !== stateStringified) {
-            this.setAttribute("state", stateStringified);
-        }
     }
 
     /**
