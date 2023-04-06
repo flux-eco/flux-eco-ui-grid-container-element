@@ -1,5 +1,9 @@
 */
+!config
+!examples
+!schemas
+!types
+!.gitignore
+!FluxEcoUIGridContainerElement.mjs
 !LICENSE
 !README.md
-!app
-!examples

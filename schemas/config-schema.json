@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://flux-eco.fluxlabs.ch/components/flux-eco-ui-grid-container-element/schemas/config.json",
+  "$id": "https://flux-eco.fluxlabs.ch/components/flux-eco-ui-grid-container-element/schemas/config-schema.json",
   "type": "object",
   "properties": {
     "id": {
@@ -10,10 +10,11 @@
       "$ref": "settings.json"
     },
     "initialState": {
-      "$ref": "state.json"
+      "$ref": "attributes-schema.json"
     }
   },
   "required": [
-    "settings","initialState"
+    "settings",
+    "initialState"
   ]
 }

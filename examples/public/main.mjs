@@ -1,9 +1,9 @@
 import "./flux-eco-ui-map-element/types/FluxEcoUiMapElementConfig.mjs";
-import {FluxEcoUiMapElement} from "./flux-eco-ui-map-element/FluxEcoUiMapElement.mjs";
+import {FluxEcoUiMapElement} from "../../../flux-eco-ui-map-element/FluxEcoUiMapElement.mjs";
 import {
     FluxEcoUiGridContainerElementOutboundsAdapter
 } from "./flux-eco-ui-grid-container-element/config/FluxEcoUiGridContainerElementOutboundsAdapter.mjs";
-import {FluxEcoUiGridContainerElement} from "./flux-eco-ui-grid-container-element/FluxEcoUIGridContainerElement.mjs";
+import {FluxEcoUiGridContainerElement} from "../../FluxEcoUIGridContainerElement.mjs";
 
 const parentElement = document.createElement("div");
 document.body.appendChild(parentElement);
@@ -12,7 +12,7 @@ const gridElementSettings = await (await fetch("settings/flux-eco-ui-grid-contai
 const uiMapElementSettings = await (await fetch("settings/flux-eco-ui-map-element-settings.json")).json();
 const id = "some/id-path";
 
-const gridContainerElementInitialState =  /** @type {FluxEcoUiGridContainerElementState} */  {
+const gridContainerElementInitialState =  /** @type {FluxEcoUiGridContainerAttributes} */  {
     gridContainerElementItems: [
         {
         tagName: FluxEcoUiMapElement.tagName,

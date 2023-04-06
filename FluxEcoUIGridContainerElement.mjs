@@ -11,9 +11,9 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
      */
     #settings;
     /**
-     * @type {FluxEcoUiGridContainerElementState|null}
+     * @type {FluxEcoUiGridContainerElementAttributes|null}
      */
-    #state;
+    #attributes;
     /**
      * @type {ShadowRoot}
      */
@@ -39,7 +39,7 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
         }
         this.#settings = validatedConfig.settings;
         if (validatedConfig.hasOwnProperty("initialState")) {
-            this.#state = validatedConfig.initialState;
+            this.#attributes = validatedConfig.initialState;
         }
         this.#outbounds = validatedConfig.outbounds;
 
@@ -62,7 +62,6 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
                             `;
 
         this.#shadow.appendChild(style);
-
     }
 
     static get tagName() {
@@ -84,18 +83,18 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
         this.setAttribute("id", this.#id);
         this.#contentContainer = this.#createContentContainerElement(this.#id)
         this.#shadow.appendChild(this.#contentContainer);
-        if (this.#state) {
-            this.#applyStateChanged(this.#state)
+        if (this.#attributes) {
+            this.#applyAttributesChanged(this.#attributes)
         }
     }
 
-    changeState(newState) {
+    changeAttributes(attributes) {
         //todo validate
-        this.#applyStateChanged(newState);
+        this.#applyAttributesChanged(attributes);
     }
 
-    #applyStateChanged(validatedState) {
-        const {gridContainerElementItems} = validatedState
+    async #applyAttributesChanged(validatedAttributes) {
+        const {gridContainerElementItems} = validatedAttributes
         if (this.#contentContainer !== undefined) {
             this.#contentContainer.innerHTML = "";
         }
@@ -104,7 +103,7 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
              * @param {GridContainerElementItem} item
              */
             for (const [key, gridContainerElementItem] of Object.entries(gridContainerElementItems)) {
-                const element = this.#outbounds.createUiElement(gridContainerElementItem.uiElementDefinition, gridContainerElementItem.readStateActionDefinition);
+                const element = await this.#outbounds.createUiElement(gridContainerElementItem.uiElementDefinition, gridContainerElementItem.readAttributesAction);
                 console.log(element);
 
                 element.classList.add("grid-item");
@@ -112,7 +111,7 @@ export class FluxEcoUiGridContainerElement extends HTMLElement {
             }
         }
 
-        this.#state = validatedState;
+        this.#attributes = validatedAttributes;
     }
 
     /**
